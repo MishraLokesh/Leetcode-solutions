@@ -2,11 +2,19 @@ class Solution {
 public:
     string restoreString(string s, vector<int>& indices) {
 
-        string ret = s;
-        for(int i=0;i<indices.size();i++) {
-            ret[indices[i]] = s[i];
+        for(int i=0;i<indices.size();i++)
+        {
+            
+              while(indices[i]!=i)
+              {
+                  swap(s[i],s[indices[i]]);
+                  swap(indices[i],indices[indices[i]]);
+                       
+              }
         }
-        return ret;
+        
+       
+        return s;
     }
 };
 
