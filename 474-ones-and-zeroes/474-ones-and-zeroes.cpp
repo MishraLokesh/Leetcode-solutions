@@ -1,0 +1,36 @@
+// class Solution {
+// public:
+//     int findMaxForm(vector<string>& strs, int m, int n) {
+//         int count=0;
+//         for(auto it:strs){
+//             int M=0,N=0;
+//             for(auto s:it){
+//                 if(s=='0') M++;
+//                 else if(s=='1') N++;
+//             }
+//             if(M<=m && N<=n) count++;
+//         }
+//         if(count==strs.size()) count--;
+//         return count;
+//     }
+// };
+
+class Solution {
+public:
+    int findMaxForm(vector<string>& strs, int m, int n) {
+        
+        vector<vector<int>> dp(m + 1, vector<int>(n + 1));
+        
+        for(auto& s : strs) { 
+            
+            int zeros = count(s.begin(), s.end(), '0');
+            int ones = s.size();
+            
+            for(int i = m; i >= zeros; i--) 
+                for(int j = n; j >= (ones - zeros); j--) 
+                    dp[i][j] = max(dp[i][j], 1 + dp[i - zeros][j - ones + zeros]);
+        }
+        
+        return dp[m][n];
+    }
+};
